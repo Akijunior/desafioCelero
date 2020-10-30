@@ -12,7 +12,7 @@ class Game(models.Model):
 
 
 class Athlete(models.Model):
-    athlete_id = models.IntegerField("Id do atleta")
+    athlete_id = models.IntegerField("Id do atleta", unique=True)
     name = models.CharField("Nome", max_length=100)
     sex = models.CharField("Sexo", max_length=1)
     age = models.IntegerField("Idade")

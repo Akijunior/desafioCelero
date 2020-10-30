@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
 
-    'athlete.apps.AthleteConfig',
+    'apps.athlete.apps.AthleteConfig',
 
 ]
 
