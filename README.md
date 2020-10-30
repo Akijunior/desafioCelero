@@ -67,8 +67,7 @@ rotas e acessos da api estarão disponíveis para uso, que são:
 
 * **/api/v1/criar-usuario/ -** Para criar usuário que será utilizado 
 em fins de adição de novas instâncias de ação e voluntário no sistema.
-* **/api/v1/acoes/ -** Para ter acesso ao CRUD geral de ação.
-* **api/v1/voluntarios/ -** Para ter acesso ao CRUD geral de voluntário.
+* **/api/v1/atletas/ -** Para ter acesso ao CRUD geral de atletas.
 
 Os métodos referentes a listagem são de acesso livre, mas aqueles relacionados 
 a criação e atualização de registros necessitam de um Token para serem realizados
@@ -80,7 +79,7 @@ Para mais informações sobre as rotas, acesse a documentação do sistema pelo
 ## Feito com
 
 * [Django](https://www.djangoproject.com/) - Framework web escolhido para realização do desafio
-* [Docker](https://www.docker.com/) - Forma de containerização
+* [Django Rest Framework](https://www.djangoproject.com/) - Framework web para gerenciamento da API
 * [Python](https://www.python.org/) - Linguagem de programação utilizada
 
 ## License

@@ -10,7 +10,7 @@
 .idea/**/tasks.xml
 .idea/dictionaries
 
-utils/csv_data
+csv_data/
 postgres-data
 
 # Sensitive or high-churn files:
@@ -270,3 +270,4 @@ src/apps/media/*
 src/apps/core/csv/
 src/apps/core/fixtures/
 tests/integration/
+utils/
