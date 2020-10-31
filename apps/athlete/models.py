@@ -14,7 +14,7 @@ class Game(models.Model):
     sports = models.ManyToManyField("athlete.Sport")
 
     class Meta:
-        ordering = ['games', ]
+        ordering = ['game_name', ]
 
 
 class Athlete(models.Model):
