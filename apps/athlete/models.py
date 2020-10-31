@@ -1,7 +1,10 @@
+from django.contrib.auth.models import User
 from django.db import models
+from rest_framework.authtoken.models import Token
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
-# Create your models here.
 
 class Game(models.Model):
     games = models.CharField(max_length=200)
@@ -9,6 +12,9 @@ class Game(models.Model):
     season = models.CharField("Estação", max_length=200)
     city = models.CharField("Cidade", max_length=200)
     sports = models.ManyToManyField("athlete.Sport")
+
+    class Meta:
+        ordering = ['games', ]
 
 
 class Athlete(models.Model):
@@ -21,9 +27,15 @@ class Athlete(models.Model):
     team = models.CharField("Equipe/País", max_length=100)
     noc = models.CharField("Siglas", max_length=3)
 
+    class Meta:
+        ordering = ['athlete_id', ]
+
 
 class Sport(models.Model):
     sport = models.CharField(max_length=100)
+
+    class Meta:
+        ordering = ['sport', ]
 
 
 class Medal(models.Model):
@@ -31,3 +43,13 @@ class Medal(models.Model):
     sport = models.ForeignKey('athlete.Sport', on_delete=models.CASCADE)
     event = models.CharField(max_length=100)
     medal = models.CharField(max_length=10)
+
+    class Meta:
+        ordering = ['athlete__athlete_id', ]
+
+
+@receiver(post_save, sender=User)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    print(Token.objects.filter(user__username='b@a.com'))
+    if created:
+        Token.objects.create(user=instance)

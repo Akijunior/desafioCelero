@@ -4,7 +4,7 @@ from django.db.models import Q
 from rest_framework import serializers, status
 from rest_framework.exceptions import APIException
 
-from .models import Athlete
+from .models import Athlete, Game
 
 VALIDATE_VALID_EMAIL_REGEX = True
 EMAIL_VALIDATE_REGEX = r"[^@]+@[^@]+\.[^@]+"
@@ -15,10 +15,17 @@ class Custom409(APIException):
     default_detail = "Já existe um usuário cadastrado com o e-mail em questão."
 
 
-class AthleteSerializer(serializers.ModelSerializer):
+class AthleteSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Athlete
+        fields = "__all__"
+
+
+class GameSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Game
         fields = "__all__"
 
 
