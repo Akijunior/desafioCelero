@@ -10,7 +10,7 @@
 .idea/**/tasks.xml
 .idea/dictionaries
 
-csv_data/
+csv_data/**
 postgres-data
 
 # Sensitive or high-churn files:

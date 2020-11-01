@@ -32,7 +32,7 @@ class Athlete(models.Model):
 
 
 class Sport(models.Model):
-    sport = models.CharField(max_length=100)
+    sport = models.CharField(max_length=100, unique=True)
 
     class Meta:
         ordering = ['sport', ]
