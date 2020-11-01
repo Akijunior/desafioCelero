@@ -17,8 +17,8 @@ rotas e acessos da api estarão disponíveis para uso.
 
 ### Pré-requisitos
 
-- Docker
 - Python 3
+- Django
 
 ### Instalação
 
@@ -73,6 +73,14 @@ Os testes feitos tem como base avaliar o CRUD geral das
 rotas da aplicação, também verificando se as regras e políticas de 
 cada uma delas está sendo seguida devidamente.
 
+
+## Diagramas desenvolvidos para estabelecer a lógica de desenvolvimento dos models da api:
+
+### Diagrama de Classe
+![](/utils/diagrama_classe.jpeg)
+
+### Diagrama de Objeto
+![]()
 
 ## Feito com
 
