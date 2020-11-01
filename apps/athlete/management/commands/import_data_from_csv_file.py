@@ -68,10 +68,11 @@ class Command(BaseCommand):
                 medal = Medal.objects.create(
                     athlete=athlete,
                     event=event,
+                    game=game,
                     medal=row['Medal']
                 )
 
-                self.stdout.write(self.style.SUCCESS('Todos os dados foram importados com sucesso!'))
+            self.stdout.write(self.style.SUCCESS('Todos os dados foram importados com sucesso!'))
 
         except FileNotFoundError:
             print("O nome do arquivo não foi encontrado no diretório csv_data."

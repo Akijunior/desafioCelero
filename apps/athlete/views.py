@@ -1,10 +1,12 @@
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 
 from apps.athlete.models import Athlete, Game, Sport, Event
 from apps.athlete.serializers import AthleteSerializer, UserSerializer, \
-    GameSerializer, SportSerializer, EventSerializer
+    GameSerializer, SportSerializer, EventSerializer, AthleteDetailSerializer, SportDetailSerializer, \
+    GameDetailSerializer
 
 
 class AthleteViewSet(viewsets.ModelViewSet):
@@ -21,6 +23,19 @@ class AthleteViewSet(viewsets.ModelViewSet):
             self.permission_classes = [permissions.AllowAny, ]
 
         return super(self.__class__, self).get_permissions()
+
+    def get_object(self):
+        self.serializer_class = AthleteDetailSerializer
+        queryset = self.filter_queryset(self.get_queryset())
+
+        lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+
+        filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg]}
+        obj = get_object_or_404(queryset, **filter_kwargs)
+
+        self.check_object_permissions(self.request, obj)
+
+        return obj
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', True)
@@ -94,6 +109,19 @@ class GameViewSet(viewsets.ModelViewSet):
 
         return super(self.__class__, self).get_permissions()
 
+    def get_object(self):
+        self.serializer_class = GameDetailSerializer
+        queryset = self.filter_queryset(self.get_queryset())
+
+        lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+
+        filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg]}
+        obj = get_object_or_404(queryset, **filter_kwargs)
+
+        self.check_object_permissions(self.request, obj)
+
+        return obj
+
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', True)
         instance = self.get_object()
@@ -129,6 +157,19 @@ class SportViewSet(viewsets.ModelViewSet):
             self.permission_classes = [permissions.AllowAny, ]
 
         return super(self.__class__, self).get_permissions()
+
+    def get_object(self):
+        self.serializer_class = SportDetailSerializer
+        queryset = self.filter_queryset(self.get_queryset())
+
+        lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+
+        filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg]}
+        obj = get_object_or_404(queryset, **filter_kwargs)
+
+        self.check_object_permissions(self.request, obj)
+
+        return obj
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', True)

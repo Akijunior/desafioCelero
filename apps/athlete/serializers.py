@@ -4,7 +4,7 @@ from django.db.models import Q
 from rest_framework import serializers, status
 from rest_framework.exceptions import APIException
 
-from .models import Athlete, Game, Sport, Event
+from .models import Athlete, Game, Sport, Event, Medal
 
 VALIDATE_VALID_EMAIL_REGEX = True
 EMAIL_VALIDATE_REGEX = r"[^@]+@[^@]+\.[^@]+"
@@ -22,6 +22,20 @@ class AthleteSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class AthleteDetailSerializer(serializers.ModelSerializer):
+
+    medals = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Athlete
+        fields = ["id", "athlete_id", "name", "sex", "age", "height",
+                  "weight", "team", "noc", "medals"]
+
+    def get_medals(self, obj):
+        medals = obj.medal_set.exclude(medal="0")
+        return MedalSerializer(medals, many=True).data
+
+
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
@@ -34,10 +48,54 @@ class GameSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class GameDetailSerializer(serializers.ModelSerializer):
+
+    sports = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Game
+        fields = ["id", "game_name", "year", "season", "city", "sports"]
+
+    def get_sports(self, obj):
+        sports = obj.sports.all()
+        return SportSerializer(sports, many=True).data
+
+
+class MedalSerializer(serializers.ModelSerializer):
+
+    event = serializers.SerializerMethodField()
+    game = serializers.SerializerMethodField()
+
+
+    class Meta:
+        model = Medal
+        fields = ['medal', 'game', 'event']
+
+    def get_event(self, obj):
+        return '%s' % (obj.event.event)
+
+    def get_game(self, obj):
+        return '%s' % (obj.game.game_name)
+
+
+
 class SportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sport
         fields = "__all__"
+
+
+class SportDetailSerializer(serializers.ModelSerializer):
+
+    events = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Sport
+        fields = ["id", "sport", "events"]
+
+    def get_events(self, obj):
+        events = obj.event_set.all()
+        return EventSerializer(events, many=True).data
 
 
 class UserSerializer(serializers.ModelSerializer):

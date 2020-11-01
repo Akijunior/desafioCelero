@@ -1,4 +1,4 @@
-# Desafio técnico da Atados
+# Desafio técnico da Celero
 
 Este código trata-se da resolução para o desafio proposto pela Atados.
 O desafio proposto baseia-se na construção de uma API que comporte a 
