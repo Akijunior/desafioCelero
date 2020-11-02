@@ -7,6 +7,7 @@ from django.conf import settings
 import pandas as pd
 
 from apps.athlete.models import Athlete, Game, Sport, Medal, Event
+from utils.methods.import_csv import import_csv
 
 
 class Command(BaseCommand):
@@ -30,47 +31,7 @@ class Command(BaseCommand):
 
             loc = os.path.join(settings.CSV_ROOT, options['csv_file_name'] + ".csv")
 
-            df_athletes = pd.read_csv(loc)
-            df_athletes = df_athletes.fillna(0)
-
-            for index, row in df_athletes.iterrows():
-
-                athlete, created = Athlete.objects.get_or_create(
-                    athlete_id=int(row['ID']),
-                    defaults={
-                        'name': row['Name'],
-                        'sex': row['Sex'],
-                        'age': row['Age'],
-                        'height': row['Height'],
-                        'weight': row['Weight'],
-                        'team': row['Team'],
-                        'noc': row['NOC']
-                    })
-
-                sport, created = Sport.objects.get_or_create(
-                    sport=row['Sport'])
-
-                game, created = Game.objects.get_or_create(
-                    game_name=row['Games'],
-                    defaults={
-                        'year': row['Year'],
-                        'season': row['Season'],
-                        'city': row['City'],
-                    })
-
-                game.sports.add(sport)
-
-                event, created = Event.objects.get_or_create(
-                    event=row['Event'],
-                    defaults={'sport': sport}
-                )
-
-                medal = Medal.objects.create(
-                    athlete=athlete,
-                    event=event,
-                    game=game,
-                    medal=row['Medal']
-                )
+            import_csv(loc, num_lines=70)
 
             self.stdout.write(self.style.SUCCESS('Todos os dados foram importados com sucesso!'))
 

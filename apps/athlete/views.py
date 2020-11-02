@@ -1,12 +1,37 @@
+import csv
+import io
+
+import pandas as pd
+
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, permissions, status, filters
+from rest_framework import viewsets, permissions, status, filters, views, serializers, generics
+from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 
 from apps.athlete.models import Athlete, Game, Sport, Event
 from apps.athlete.serializers import AthleteSerializer, UserSerializer, \
     GameSerializer, SportSerializer, EventSerializer, AthleteDetailSerializer, SportDetailSerializer, \
     GameDetailSerializer
+from utils.methods.import_csv import import_csv
+
+
+class FileUploadSerializer(serializers.Serializer):
+    file = serializers.FileField()
+
+    class Meta:
+        fields = ('file',)
+
+class FileUploadAPIView(generics.CreateAPIView):
+    serializer_class = FileUploadSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        file = serializer.validated_data['file']
+        import_csv(file)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class AthleteViewSet(viewsets.ModelViewSet):
