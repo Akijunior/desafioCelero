@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, permissions, status
+from rest_framework import viewsets, permissions, status, filters
 from rest_framework.response import Response
 
 from apps.athlete.models import Athlete, Game, Sport, Event
@@ -12,6 +12,8 @@ from apps.athlete.serializers import AthleteSerializer, UserSerializer, \
 class AthleteViewSet(viewsets.ModelViewSet):
     queryset = Athlete.objects.all()
     serializer_class = AthleteSerializer
+    search_fields = ['name', 'noc', 'team']
+    filter_backends = (filters.SearchFilter,)
 
     user_actions = ['create', 'destroy', 'update']
     safe_actions = ['list', 'retrieve']
@@ -62,6 +64,9 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
+    search_fields = ['event',]
+    filter_backends = (filters.SearchFilter, )
+
     user_actions = ['create', 'destroy', 'update']
     safe_actions = ['list', 'retrieve']
 
@@ -97,6 +102,9 @@ class EventViewSet(viewsets.ModelViewSet):
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
+
+    search_fields = ['season', 'city']
+    filter_backends = (filters.SearchFilter,)
 
     user_actions = ['create', 'destroy', 'update']
     safe_actions = ['list', 'retrieve']

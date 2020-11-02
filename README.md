@@ -77,7 +77,7 @@ cada uma delas está sendo seguida devidamente.
 ## Diagramas desenvolvidos para estabelecer a lógica de desenvolvimento dos models da api:
 
 ### Diagrama de Classe
-![](/utils/diagrama_classe.jpeg)
+![Diagrama de Classe](/utils/diagrama_classe.jpeg)
 
 ### Diagrama de Objeto
 ![]()

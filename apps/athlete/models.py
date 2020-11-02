@@ -45,6 +45,9 @@ class Event(models.Model):
     sport = models.ForeignKey('athlete.Sport', on_delete=models.CASCADE)
     event = models.CharField(max_length=100)
 
+    class Meta:
+        ordering = ['event', ]
+
 
 class Medal(models.Model):
     athlete = models.ForeignKey('athlete.Athlete', on_delete=models.CASCADE)
