@@ -1,5 +1,6 @@
 import os
 
+import dj_database_url
 from decouple import config, Csv
 
 from dj_database_url import parse as db_url
@@ -87,6 +88,10 @@ DATABASES = {
         default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
         cast=db_url
     )
+}
+
+TEST_DATABASES = {
+    'default': dj_database_url.config(env='TEST_DATABASE_URL')
 }
 
 

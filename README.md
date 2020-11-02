@@ -1,19 +1,15 @@
 # Desafio técnico da Celero
 
-Este código trata-se da resolução para o desafio proposto pela Atados.
+Este código trata-se da resolução para o desafio proposto pela Celero.
 O desafio proposto baseia-se na construção de uma API que comporte a 
-inclusão de voluntários e ações sociais.
+inclusão de atletas, eventos e jogos, segundo o modelo estabelecido em 
+[“120 years of Olympic history: athletes and results”](https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results#athlete_events.csv) 
+do Kaggle, e que aceite também fazer a importação de dados via arquivo CSV nesse mesmo padrão.
 
 
 ## Getting Started
 
 Para iniciar, realiza-se a clonagem do projeto na máquina local.
-Após baixar o projeto, para executá-lo basta rodar o comando
-```
-docker-compose up
-``` 
-e então aguardar que o container docker suba, que logo então todas as 
-rotas e acessos da api estarão disponíveis para uso.
 
 ### Pré-requisitos
 
@@ -24,8 +20,6 @@ rotas e acessos da api estarão disponíveis para uso.
 
 ## Deployment
 
-Para testa o sistema de forma local, realiza-se primeiro a clonagem 
-do projeto na máquina local.
 Após baixar o projeto, os seguintes passos devem ser devidamente seguidos:
 1. Criar um ambiente virtual com Python;
 2. Dentro do ambiente virtual, executar: 
@@ -42,7 +36,13 @@ DATABASE_DEV_URL
 ```
 
 E então, com as configurações feitas, todas as 
-rotas e acessos da api estarão disponíveis para uso. Elas são:
+rotas e acessos da api estarão disponíveis para uso, 
+bastando rodar o comando:
+```
+python manage.py runserver
+```
+Para que o projeto comece a rodar em sua máquina local.
+As principais rotas presentes na api são:
 
 * **/api/v1/criar-usuario/ -** Para criar usuário que será utilizado 
 em fins de adição de novas instâncias de ação e voluntário no sistema.
@@ -50,6 +50,8 @@ em fins de adição de novas instâncias de ação e voluntário no sistema.
 * **/api/v1/jogos/ -** Para ter acesso ao CRUD geral de jogos.
 * **/api/v1/esportes/ -** Para ter acesso ao CRUD geral de esportes.
 * **/api/v1/eventos/ -** Para ter acesso ao CRUD geral de eventos.
+* **/import/upload/ -** Para fazer upload de um arquivo CSV que servirá no 
+povoamento dos models cadastrados.
 
 Os métodos referentes a listagem são de acesso livre, mas aqueles relacionados 
 a criação e atualização de registros necessitam de um Token para serem realizados
@@ -74,13 +76,16 @@ rotas da aplicação, também verificando se as regras e políticas de
 cada uma delas está sendo seguida devidamente.
 
 
-## Diagramas desenvolvidos para estabelecer a lógica de desenvolvimento dos models da api:
+## Diagramas desenvolvidos para estabelecer a lógica de desenvolvimento dos models da API:
 
-### Diagrama de Classe
-![Diagrama de Classe](/utils/diagrama_classe.jpeg)
+### Diagrama de Classes
+![Diagrama de Classe](/utils/diagrama_classes.jpeg)
 
-### Diagrama de Objeto
-![]()
+### Diagrama de Objetos
+![Diagrama de Objetos](/utils/diagrama_objetos.jpeg)
+
+## Versão online
+Para fazer um teste online dessa api, pode-se acessar a versão dela que está disponível no [Heroku](https://desafio-celero.herokuapp.com/).
 
 ## Feito com
 
