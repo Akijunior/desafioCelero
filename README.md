@@ -15,8 +15,12 @@ Para iniciar, realiza-se a clonagem do projeto na máquina local.
 
 - Python 3
 - Django
+- k6
 
 ### Instalação
+O k6 será utilizado para rodar os testes na API, como será melhor visto mais abaixo.
+Para instalar o k6 basta [baixar o binário](https://github.com/loadimpact/k6/releases) para o seu
+sistema operacional (Windows, Linux ou Mac).
 
 ## Deployment
 
@@ -62,12 +66,14 @@ Para mais informações sobre as rotas, acesse a documentação do sistema pelo
 
 ## Executanto os testes
 
-Para executar os testes, antes é preciso o projeto esteja devidamente configurado em sua máquina. Feito isso, os 
-testes poderão ser executados nas seguintes formas:
-
-* **Todos disponíveis -** _python manage.py test --pattern="test\_*.py"_ ou apenas _python manage.py test tests_
-* **Por módulo -** _python manage.py test tests.autenticacao_
-* **Individual -** _python manage.py test tests.autenticacao.test_api_
+Para executar os testes, antes é preciso o projeto esteja devidamente configurado em sua máquina e 
+que além disso você tenha o k6 instalado. Feito isso, os 
+testes poderão ser executados da seguinte forma:
+```
+k6 run -e API_BASE='http://0.0.0.0:8000' tests-open.js  
+```
+Observando-se que para que os testes sejam executados, 
+é preciso que o servidor já esteja rodando localmente.
 
 ### Explicação dos testes
 
